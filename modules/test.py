@@ -13,7 +13,7 @@ class DataTestIfood:
         self.headers = {"Authorization": f"token {token}"}
 
     def read_data(self):
-        df_test = self.spark.read.format("csv").options(header = True, multiLine=True).load(self.path)
+        df_test = DataExtractorIfood(spark=self.spark,user=self.user,token=self.token).extract_csv(path=self.path)
         
         return df_test
 

@@ -6,4 +6,4 @@ class DataLoaderIfood:
         self.path = path
 
     def save_to_csv(self, df: DataFrame):
-        df.coalesce(1).write.csv(self.path, header=True, mode="append")
+        df.coalesce(1).write.csv(self.path, header=True, mode="overwrite")

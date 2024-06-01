@@ -83,8 +83,8 @@ class DataExtractorIfood:
         df_extract = self.enrich_with_github_info(df=df)
         return df_extract
 
-    def read_csv(self, path):
-        return self.spark.read.csv(path, header=True, inferSchema=True)
+    def extract_csv(self, path):
+        return self.spark.read.format("csv").options(header = True, multiLine=True).load(path)
 
     def get_count_followers(self):
         url = f"https://api.github.com/users/{self.user}"

@@ -12,19 +12,14 @@ class DataTestIfood:
         self.token = token
         self.headers = {"Authorization": f"token {token}"}
 
-    def read_data(self):
-        df_test = DataExtractorIfood(spark=self.spark,user=self.user,token=self.token).extract_csv(path=self.path)
-        
-        return df_test
-
-    def clean_company(self,df):
+    def clean_company_check(self,df):
         
         if df.filter(col("company").like("%@%")).count() > 0:
             print("Existe pelo menos um '@' na coluna 'company'.")
         else:
             print("Não existe '@' na coluna 'company'.")
         
-    def date_format(self,df):
+    def date_format_check(self,df):
 
         pattern = r'^\d{2}/\d{2}/\d{4}$'
 
@@ -33,7 +28,7 @@ class DataTestIfood:
         else:
             print("A coluna 'created_at' não está com todas as datas no formato dd/mm/yyyy.")
     
-    def count_followers(self,df):
+    def volumetry_check(self,df):
 
         followers_count = DataExtractorIfood(spark=self.spark,user=self.user,token=self.token).get_count_followers()
         
@@ -45,8 +40,8 @@ class DataTestIfood:
 
     def execute_test(self):
         print("Resultado das verificações de teste no Dataframe.")
-        df = self.read_data()
-        self.clean_company(df=df)
-        self.date_format(df=df)
-        self.count_followers(df=df)
+        df = DataExtractorIfood(spark=self.spark,user=self.user,token=self.token).extract_csv(path=self.path)
+        self.clean_company_check(df=df)
+        self.date_format_check(df=df)
+        self.volumetry_check(df=df)
         

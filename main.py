@@ -4,7 +4,7 @@ from modules.extract import DataExtractorIfood
 from modules.loader import DataLoaderIfood
 from modules.transform import DataTransformerIfood
 from modules.test import DataTestIfood
-from credentials.credentials import user, token, path
+from credentials.constantes import user, token, path
 
 
 spark = SparkSession.builder.appName("PySparkApp").getOrCreate()

@@ -43,7 +43,7 @@ class DataExtractorIfood:
         followers_df = self.spark.createDataFrame(users)
         return followers_df
 
-    def enrich_with_github_info(self, df):
+    def enrich_dataframe_with_github_info(self, df):
         schema = StructType([
             StructField("name", StringType(), True),
             StructField("company", StringType(), True),
@@ -80,7 +80,7 @@ class DataExtractorIfood:
 
     def execute_extract_api(self):
         df = self.get_followers()
-        df_extract = self.enrich_with_github_info(df=df)
+        df_extract = self.enrich_dataframe_with_github_info(df=df)
         return df_extract
 
     def extract_csv(self, path):

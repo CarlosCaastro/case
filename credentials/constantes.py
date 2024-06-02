@@ -1,3 +1,3 @@
-user = 'marciocl'
+user = ''
 token = ''
 path = '/app/output/'
